@@ -1,0 +1,5 @@
+# Docker data volumes
+config/
+*.log
+.DS_Store
+Thumbs.db

@@ -1,0 +1,20 @@
+services:
+  code-server:
+    image: lscr.io/linuxserver/code-server:latest
+    container_name: code-server
+    hostname: abinash-dev # <-- This removes the random numbers in your terminal
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Asia/Kolkata
+      - PASSWORD=Abinash@123
+      - DEFAULT_WORKSPACE=/config/workspace
+      - PWA_APPNAME=Abinash's VS Code # <-- Changes the web-app name on your iPad/Browser
+    volumes:
+      - code-server-data:/config  # This changes from a Windows folder to a Docker volume
+    ports:
+      - 18443:8443
+    restart: unless-stopped
+
+volumes:
+  code-server-data: # This tells Docker to manage the storage itself
