@@ -99,11 +99,23 @@ docker compose up -d
 > [!NOTE]
 > Give Docker a minute to pull the image and start the container.
 
+Once it finishes, the `lscr.io/linuxserver/code-server` image shows up under **Images** in Docker Desktop:
+
 <div align="center">
 
-<img src="Screenshots/1.png" alt="Docker container running" width="800">
+<img src="Screenshots/1.png" alt="Docker Desktop Images tab showing the code-server image" width="800">
 
-<sub><i>Fig 1: The code-server container up and running in Docker</i></sub>
+<sub><i>Fig 1: Docker Desktop › Images, with the code-server image pulled</i></sub>
+
+</div>
+
+The **code-server** container then appears under **Containers** with a green running status:
+
+<div align="center">
+
+<img src="Screenshots/2.png" alt="Docker Desktop Containers tab showing code-server running" width="800">
+
+<sub><i>Fig 2: Docker Desktop › Containers, with code-server up and running</i></sub>
 
 </div>
 
@@ -127,14 +139,6 @@ This gives you full HTTPS, which iOS/iPadOS needs for clipboard support to work.
    https://[your-machine-name].[your-alias].ts.net/
    ```
 
-<div align="center">
-
-<img src="Screenshots/2.png" alt="Tailscale serve status output" width="800">
-
-<sub><i>Fig 2: <code>tailscale serve status</code> showing your private HTTPS URL</i></sub>
-
-</div>
-
 ### Step 4: Start Coding! 🎉
 
 1. Make sure the Tailscale app is running and connected on your remote device.
@@ -146,7 +150,7 @@ This gives you full HTTPS, which iOS/iPadOS needs for clipboard support to work.
 
 <img src="Screenshots/3.png" alt="code-server login page" width="800">
 
-<sub><i>Fig 3: The code-server login screen</i></sub>
+<sub><i>Fig 3: The login screen, where you enter your password</i></sub>
 
 </div>
 
