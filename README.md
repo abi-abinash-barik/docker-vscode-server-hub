@@ -1,6 +1,6 @@
 <div align="center">
 
-# ☁️ docker-vscode-server-hub
+# 🐳 docker-vscode-server-hub
 
 ### Your self-hosted VS Code workspace: code from anywhere, on any device, with nothing installed locally.
 
