@@ -23,6 +23,7 @@ By combining [**code-server**](https://github.com/coder/code-server) and [**Tail
 - [🛠️ Prerequisites](#️-prerequisites)
 - [🚀 Step-by-Step Setup](#-step-by-step-setup)
 - [📦 Installing Languages](#-how-to-install-languages-python-node-etc)
+- [🔐 Fixing Terminal Passwords & Gaining Root Access](#-pro-tip-fixing-terminal-passwords--gaining-root-access)
 - [🛑 Managing the Server](#-managing-the-server)
 - [🐳 Managing with the Docker GUI](#-managing-with-the-docker-gui)
 - [🙌 Credits](#-credits--acknowledgements)
@@ -80,7 +81,6 @@ services:
 volumes:
   code-server-data: # Docker manages this storage itself
 ```
-
 
 > [!NOTE]
 > Two optional settings are included: `hostname` sets a clean, readable name in your terminal prompt, and `PWA_APPNAME` sets the name used when you add the workspace to your iPad or browser as an installable web app. Change both to whatever you like.
@@ -175,7 +175,44 @@ This gives you full HTTPS, which iOS/iPadOS needs for clipboard support to work.
    ```bash
    sudo apt update && sudo apt install -y python3 python3-pip python3-venv
    ```
+   > [!NOTE]
+   > If the terminal asks for a password, see [Fixing Terminal Passwords & Gaining Root Access](#-pro-tip-fixing-terminal-passwords--gaining-root-access) below.
 4. **Where to save code:** keep all your code and repositories in `/config/workspace/`. That folder lives on the persistent Docker volume, so it survives container restarts.
+
+---
+
+## 🔐 Pro-Tip: Fixing Terminal Passwords & Gaining Root Access
+
+By default, the `linuxserver` image safely locks the passwords for both the default `abc` user and the `root` administrator. If the VS Code terminal ever asks you for a password (for example, when running a script or trying to install advanced system packages), you will need to set your own passwords first.
+
+Because the container is running on your machine, you can bypass the locked prompt by injecting a root terminal directly from your host OS.
+
+### Step-by-Step Guide
+
+1. **Open your host terminal** (e.g. Windows PowerShell or Mac/Linux Terminal). Do not use the VS Code browser terminal for this step.
+2. **Force root entry into the container** by running this exact command:
+   ```bash
+   docker exec -it -u root code-server /bin/bash
+   ```
+   *(Your terminal prompt will instantly change to `root@...:/#`, meaning you are inside the container with ultimate privileges.)*
+3. **Set the password for the default user (`abc`)**:
+   ```bash
+   passwd abc
+   ```
+   *(Type your new password, press Enter, and confirm it. Characters stay hidden while you type.)*
+4. **Set the password for the root administrator**:
+   ```bash
+   passwd root
+   ```
+5. **Exit the root session** to return to your normal host terminal:
+   ```bash
+   exit
+   ```
+
+You can now go back to your browser-based VS Code terminal, and the new passwords you just created will work perfectly!
+
+> [!WARNING]
+> **Never rename the `abc` user** with Linux commands like `usermod`. The name `abc` is hardcoded into the container's core startup scripts to sync file permissions with your host machine, and renaming it will permanently break the container. If you want your terminal to display your actual name, update your `PS1` variable in `~/.bashrc` instead.
 
 ---
 
